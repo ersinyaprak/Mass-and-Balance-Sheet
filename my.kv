@@ -1,0 +1,1116 @@
+#:kivy 1.11.1
+
+<WindowManager>:
+    AnaEkran:
+        name: 'anaekran'
+    Hesaplama:
+        name: 'hesaplama'
+    Ayarlar:
+        name: 'ayarlar'
+    UcakAyarlar:
+        name: 'ucakayarlar'
+    UcakEkle:
+        name: 'ucakekle'
+    UcakUpdate:
+        name: 'ucakupdate'
+    UcakSil:
+        name: 'ucaksil'
+    FiAyarlar:
+        name: 'fiayarlar'
+    FiEkle:
+        name: 'fiekle'
+    FiUpdate:
+        name: 'fiupdate'
+    FiSil:
+        name: 'fisil'
+
+
+<P>:
+    auto_dismiss: True
+    Label:
+        text_size: self.size
+        text: app.warn
+        size_hint: 0.6, 1
+        pos_hint: {"x": 0.2, "top":1}
+
+<Label>:
+
+
+    halign: 'center'
+    valign: 'middle'
+    bold: True
+
+
+<AnaEkran>:
+    BoxLayout:
+        orientation: "vertical"
+        Button:
+            height: '48dp'
+            text: 'Mass and Balance Sheet'
+            text_size: self.size
+            halign: 'center'
+            on_release:
+                root.manager.transition.direction = "left"
+                root.tohesaplama()
+
+
+        Button:
+            height: '48dp'
+            text: 'Options'
+            text_size: self.size
+            halign: 'center'
+            on_release:
+                root.manager.transition.direction = "left"
+                root.toayarlar()
+<Hesaplama>
+    canvas.before:
+        Color:
+            rgb: .6, .6, .6
+        Rectangle:
+            size: self.size
+            source: 'data/background.png'
+
+    BoxLayout:
+        orientation: "vertical"
+        Button:
+            height: '48dp'
+            text: 'CALCULATE'
+            text_size: self.size
+            halign: 'center'
+            text: "Options"
+            size_hint: 1, 0.06
+            on_release:
+                root.toayarlar()
+
+        Label:
+            text: ""
+            size_hint: 1, 0.04
+        BoxLayout:
+            orientation: "vertical"
+            size_hint: 1, 0.80
+
+            BoxLayout:
+                orientation: "horizontal"
+                size_hint: 1, 0.07
+
+                Spinner:
+                    id: spinnerucak
+                    text: '  AIRCRAFT'
+                    values: app.values
+                    height: '48dp'
+                    on_text:
+                        root.manager.transition.direction = "left"
+                        root.spinnerucakhesapla()
+
+
+                Button:
+                    height: '48dp'
+                    text: 'CALCULATE'
+                    text_size: self.size
+                    halign: 'center'
+                    on_release:
+                        root.hesapla()
+
+
+
+
+            BoxLayout:
+                orientation: "horizontal"
+                size_hint: 1, 0.75
+                BoxLayout:
+                    orientation: "vertical"
+                    Label:
+                        text: ""
+                    Label:
+                        text_size: self.size
+                        text: "Basic Empty Mass"
+                    Label:
+                        text_size: self.size
+                        text: "SP/Pilot"
+                    Spinner:
+                        id: spinnerfi
+                        text: 'FI/Co-Pilot'
+                        height: '48dp'
+                        values: app.valuesfi
+                        on_text:
+                            root.manager.transition.direction = "left"
+                            root.spinnerfihesapla()
+
+
+
+
+
+                    Label:
+                        text_size: self.size
+                        text: "Rear Seat 1"
+                    Label:
+                        text_size: self.size
+                        text: "Rear Seat 2"
+                    Label:
+                        text_size: self.size
+                        text: "Baggage 1"
+                    Label:
+                        text_size: self.size
+                        text: "Baggage 2"
+                    Label:
+                        text_size: self.size
+                        text: "Usable Fuel"
+                BoxLayout:
+                    orientation: "vertical"
+                    Label:
+                        text: "Weight"
+                        text_size: self.size
+                        halign: 'center'
+                    Label:
+                        id: bem_label
+                        text: ""
+                    TextInput:
+                        id: sp_input
+                        multiline: False
+                        input_filter: "float"
+
+                    Label:
+                        id: fi_weight_label
+                        text: ""
+                    TextInput:
+                        id: rs1_input
+                        multiline: False
+                        input_filter: "float"
+                    TextInput:
+                        id: rs2_input
+                        multiline: False
+                        input_filter: "float"
+                    TextInput:
+                        id: ba1_input
+                        multiline: False
+                        input_filter: "float"
+                    TextInput:
+                        id: ba2_input
+                        multiline: False
+                        input_filter: "float"
+                    TextInput:
+                        id: fuel_input
+                        multiline: False
+                        input_filter: "float"
+                BoxLayout:
+                    orientation: "vertical"
+                    Label:
+                        text: "Arm"
+                        text_size: self.size
+                        halign: 'center'
+                    Label:
+                        id: plane_arm_label
+                        text: ""
+                    Label:
+                        id: sp_arm_label
+                        text: ""
+                    Label:
+                        id: fi_arm_label
+                        text: ""
+                    Label:
+                        id: rs1_arm_label
+                        text: ""
+                    Label:
+                        id: rs2_arm_label
+                        text: ""
+                    Label:
+                        id: ba1_arm_label
+                        text: ""
+                    Label:
+                        id: ba2_arm_label
+                        text: ""
+                    Label:
+                        id: fuel_arm_label
+                        text: ""
+                BoxLayout:
+                    orientation: "vertical"
+                    Label:
+                        text: "Moment"
+                        text_size: self.size
+                        halign: 'center'
+                    Label:
+                        id: plane_moment_label
+                        text: ""
+                    Label:
+                        id: sp_moment_label
+                        text: ""
+                    Label:
+                        id: fi_moment_label
+                        text: ""
+                    Label:
+                        id: rs1_moment_label
+                        text: ""
+                    Label:
+                        id: rs2_moment_label
+                        text: ""
+                    Label:
+                        id: ba1_moment_label
+                        text: ""
+                    Label:
+                        id: ba2_moment_label
+                        text: ""
+                    Label:
+                        id: fuel_moment_label
+                        text: ""
+
+
+            BoxLayout:
+                orientation: "horizontal"
+                size_hint: 1, 0.20
+                BoxLayout:
+                    orientation: "vertical"
+                    Label:
+
+                        text: "Total Weight: "
+                        text_size: self.size
+                        halign: 'right'
+                        valign: 'middle'
+                    Label:
+
+                        text: "Total Moment: "
+                        text_size: self.size
+                        halign: 'right'
+                        valign: 'middle'
+
+                    Label:
+
+                        text: "CoG: "
+                        text_size: self.size
+                        halign: 'right'
+                        valign: 'middle'
+                BoxLayout:
+                    orientation: "vertical"
+                    Label:
+                        id: total_weight_label
+                        text: ""
+                    Label:
+                        id: total_moment_label
+                        text: ""
+                    Label:
+                        id: cog_label
+                        text: ""
+
+
+
+<Ayarlar>:
+    BoxLayout:
+        orientation: "vertical"
+        Button:
+            height: '48dp'
+            text: 'Aircraft'
+            text_size: self.size
+            halign: 'center'
+            on_release:
+                root.manager.transition.direction = "left"
+                root.toucakayarlar()
+
+        Button:
+            height: '48dp'
+            text: 'Flight Instructor'
+            text_size: self.size
+            halign: 'center'
+            on_release:
+                root.manager.transition.direction = "left"
+                root.tofiayarlar()
+
+        Button:
+            height: '48dp'
+            text: 'Back'
+            text_size: self.size
+            halign: 'center'
+            on_release:
+                root.manager.transition.direction = "right"
+                root.toanaekran()
+
+
+<UcakAyarlar>:
+    BoxLayout:
+        orientation: "vertical"
+        Button:
+            height: '48dp'
+            text: 'Add'
+            text_size: self.size
+            halign: 'center'
+            on_release:
+                root.manager.transition.direction = "left"
+                root.toucakekle()
+
+        Button:
+            height: '48dp'
+            text: 'Update'
+            text_size: self.size
+            halign: 'center'
+            on_release:
+                root.manager.transition.direction = "left"
+                root.toucakeupdate()
+
+        Button:
+            height: '48dp'
+            text: 'Delete'
+            text_size: self.size
+            halign: 'center'
+            on_release:
+                root.manager.transition.direction = "left"
+                root.toucaksil()
+
+        Button:
+            height: '48dp'
+            text: 'Back'
+            text_size: self.size
+            halign: 'center'
+            on_release:
+                root.manager.transition.direction = "right"
+                root.toayarlar()
+
+<UcakEkle>:
+    canvas.before:
+        Color:
+            rgb: .6, .6, .6
+        Rectangle:
+            size: self.size
+            source: 'data/background.png'
+
+    BoxLayout:
+        orientation: "vertical"
+        BoxLayout:
+            orientation: "horizontal"
+            size_hint: 1, 0.6
+            BoxLayout:
+                orientation: "vertical"
+                size_hint: 0.7, 1
+                Label:
+                    text_size: self.size
+                    text: "  Registration"
+                    halign: 'left'
+                Label:
+                    text_size: self.size
+                    text: "  Basic Empty Weight"
+                    halign: 'left'
+                Label:
+                    text_size: self.size
+                    text: "  Aircraft Moment Arm"
+                    halign: 'left'
+                Label:
+                    text_size: self.size
+                    text: "  Student Moment Arm"
+                    halign: 'left'
+                Label:
+                    text_size: self.size
+                    text: "  FI/Co-Pilot Moment Arm"
+                    halign: 'left'
+                Label:
+                    text_size: self.size
+                    text: "  Rear Seat 1 Moment Arm"
+                    halign: 'left'
+                Label:
+                    text_size: self.size
+                    text: "  Rear Seat 2 Moment Arm"
+                    halign: 'left'
+                Label:
+                    text_size: self.size
+                    text: "  Baggage Area 1 Moment Arm"
+                    halign: 'left'
+                Label:
+                    text_size: self.size
+                    text: "  Baggage Area 2 Moment Arm"
+                    halign: 'left'
+                Label:
+                    text_size: self.size
+                    text: "  Fuel Moment Arm"
+                    halign: 'left'
+
+            BoxLayout:
+                orientation: "vertical"
+                size_hint: 0.3, 1
+                TextInput:
+                    id: registration_input_ekle
+                    multiline: False
+                TextInput:
+                    id: bem_input_ekle
+                    multiline: False
+                    input_filter: "float"
+                TextInput:
+                    id: planearm_input_ekle
+                    multiline: False
+                    input_filter: "float"
+                TextInput:
+                    id: sparm_input_ekle
+                    multiline: False
+                    input_filter: "float"
+                TextInput:
+                    id: fiarm_input_ekle
+                    multiline: False
+                    input_filter: "float"
+                TextInput:
+                    id: rs1arm_input_ekle
+                    multiline: False
+                    input_filter: "float"
+                TextInput:
+                    id: rs2arm_input_ekle
+                    multiline: False
+                    input_filter: "float"
+                TextInput:
+                    id: ba1arm_input_ekle
+                    multiline: False
+                    input_filter: "float"
+                TextInput:
+                    id: ba2arm_input_ekle
+                    multiline: False
+                    input_filter: "float"
+                TextInput:
+                    id: fuelarm_input_ekle
+                    multiline: False
+                    input_filter: "float"
+        Button:
+            height: '48dp'
+            text: 'Add'
+            text_size: self.size
+            halign: 'center'
+            size_hint: 1, 0.2
+            on_release:
+                root.manager.transition.direction = "right"
+                root.ekletodb()
+
+        Button:
+            height: '48dp'
+            text: 'Back'
+            text_size: self.size
+            halign: 'center'
+            size_hint: 1, 0.2
+            on_release:
+                root.manager.transition.direction = "right"
+                root.toucakayarlar()
+
+<UcakUpdate>:
+    canvas.before:
+        Color:
+            rgb: .6, .6, .6
+        Rectangle:
+            size: self.size
+            source: 'data/background.png'
+
+    BoxLayout:
+        orientation: "vertical"
+        BoxLayout:
+            orientation: "horizontal"
+            size_hint: 1, 0.6
+            BoxLayout:
+                orientation: "vertical"
+                size_hint: 0.7, 1
+                Label:
+                    text_size: self.size
+                    text: "Aircrafts"
+                Label:
+                    text_size: self.size
+                    text: "  Registration"
+                    halign: 'left'
+                Label:
+                    text_size: self.size
+                    text: "  Basic Empty Weight"
+                    halign: 'left'
+                Label:
+                    text_size: self.size
+                    text: "  Aircraft Moment Arm"
+                    halign: 'left'
+                Label:
+                    text_size: self.size
+                    text: "  Student Moment Arm"
+                    halign: 'left'
+                Label:
+                    text_size: self.size
+                    text: "  FI/Co-Pilot Moment Arm"
+                    halign: 'left'
+                Label:
+                    text_size: self.size
+                    text: "  Rear Seat 1 Moment Arm"
+                    halign: 'left'
+                Label:
+                    text_size: self.size
+                    text: "  Rear Seat 2 Moment Arm"
+                    halign: 'left'
+                Label:
+                    text_size: self.size
+                    text: "  Baggage Area 1 Moment Arm"
+                    halign: 'left'
+                Label:
+                    text_size: self.size
+                    text: "  Baggage Area 2 Moment Arm"
+                    halign: 'left'
+                Label:
+                    text_size: self.size
+                    text: "  Fuel Moment Arm"
+                    halign: 'left'
+
+            BoxLayout:
+                orientation: "vertical"
+                size_hint: 0.3, 1
+                Spinner:
+                    id: spinnerupdate
+                    values: app.values
+                    text: '  Choose'
+                    height: '48dp'
+                    on_text:
+                        root.manager.transition.direction = "left"
+                        root.filltextinputs()
+
+
+                TextInput:
+                    id: registration_input_update
+                    multiline: False
+                TextInput:
+                    id: bem_input_update
+                    multiline: False
+                    input_filter: "float"
+                TextInput:
+                    id: planearm_input_update
+                    multiline: False
+                    input_filter: "float"
+                TextInput:
+                    id: sparm_input_update
+                    multiline: False
+                    input_filter: "float"
+                TextInput:
+                    id: fiarm_input_update
+                    multiline: False
+                    input_filter: "float"
+                TextInput:
+                    id: rs1arm_input_update
+                    multiline: False
+                    input_filter: "float"
+                TextInput:
+                    id: rs2arm_input_update
+                    multiline: False
+                    input_filter: "float"
+                TextInput:
+                    id: ba1arm_input_update
+                    multiline: False
+                    input_filter: "float"
+                TextInput:
+                    id: ba2arm_input_update
+                    multiline: False
+                    input_filter: "float"
+                TextInput:
+                    id: fuelarm_input_update
+                    multiline: False
+                    input_filter: "float"
+
+        Button:
+            height: '48dp'
+            text: 'Update'
+            text_size: self.size
+            halign: 'center'
+            size_hint: 1, 0.2
+            on_release:
+                root.manager.transition.direction = "right"
+                root.updatetodb()
+
+
+        Button:
+            height: '48dp'
+            text: 'Back'
+            text_size: self.size
+            halign: 'center'
+            size_hint: 1, 0.2
+            on_release:
+                root.manager.transition.direction = "right"
+                root.toucakayarlar()
+
+<UcakSil>:
+    canvas.before:
+        Color:
+            rgb: .6, .6, .6
+        Rectangle:
+            size: self.size
+            source: 'data/background.png'
+
+    BoxLayout:
+        orientation: "vertical"
+        BoxLayout:
+            orientation: "horizontal"
+            size_hint: 1, 0.6
+            BoxLayout:
+                orientation: "vertical"
+                size_hint: 0.5, 1
+                Label:
+                    text: "Aircrafts"
+                Label:
+                    text_size: self.size
+                    id: delete_label
+                    text: ""
+                    halign: 'right'
+                Label:
+                    text: ""
+                    halign: 'left'
+                Label:
+                    text: ""
+                    halign: 'left'
+                Label:
+                    text: ""
+                    halign: 'left'
+                Label:
+                    text: ""
+                    halign: 'left'
+                Label:
+                    text: ""
+                    halign: 'left'
+                Label:
+                    text: ""
+                    halign: 'left'
+                Label:
+                    text: ""
+                    halign: 'left'
+                Label:
+                    text: ""
+                    halign: 'left'
+                Label:
+                    text: ""
+                    halign: 'left'
+
+            BoxLayout:
+                orientation: "vertical"
+                size_hint: 0.5, 1
+                Spinner:
+                    id: spinnerdelete
+                    values: app.values
+                    text: '  Choose'
+                    height: '48dp'
+                    on_text:
+                        root.manager.transition.direction = "left"
+                        root.filltextinputs()
+
+
+                Label:
+
+                    id: delete_aircraft_label
+                    text_size: self.size
+                    text: ""
+                    halign: 'left'
+                Label:
+                    text: ""
+                    halign: 'left'
+                Label:
+                    text: ""
+                    halign: 'left'
+                Label:
+                    text: ""
+                    halign: 'left'
+                Label:
+                    text: ""
+                    halign: 'left'
+                Label:
+                    text: ""
+                    halign: 'left'
+                Label:
+                    text: ""
+                    halign: 'left'
+                Label:
+                    text: ""
+                    halign: 'left'
+                Label:
+                    text: ""
+                    halign: 'left'
+                Label:
+                    text: ""
+                    halign: 'left'
+
+        Button:
+            height: '48dp'
+            text: 'Delete'
+            text_size: self.size
+            halign: 'center'
+            size_hint: 1, 0.2
+            on_release:
+                root.manager.transition.direction = "right"
+                root.deletefromdb()
+
+
+        Button:
+            height: '48dp'
+            text: 'Back'
+            text_size: self.size
+            halign: 'center'
+            size_hint: 1, 0.2
+            on_release:
+                root.manager.transition.direction = "right"
+                root.toucakayarlar()
+
+
+<FiAyarlar>:
+    BoxLayout:
+        orientation: "vertical"
+        Button:
+            height: '48dp'
+            text: 'Add'
+            text_size: self.size
+            halign: 'center'
+            on_release:
+                root.manager.transition.direction = "left"
+                root.tofiekle()
+
+        Button:
+            height: '48dp'
+            text: 'Update'
+            text_size: self.size
+            halign: 'center'
+            on_release:
+                root.manager.transition.direction = "left"
+                root.tofiupdate()
+
+        Button:
+            height: '48dp'
+            text: 'Delete'
+            text_size: self.size
+            halign: 'center'
+            on_release:
+                root.manager.transition.direction = "left"
+                root.tofisil()
+
+        Button:
+            height: '48dp'
+            text: 'Back'
+            text_size: self.size
+            halign: 'center'
+            on_release:
+                root.manager.transition.direction = "right"
+                root.toayarlar()
+
+
+
+<FiEkle>:
+    canvas.before:
+        Color:
+            rgb: .6, .6, .6
+        Rectangle:
+            size: self.size
+            source: 'data/background.png'
+
+    BoxLayout:
+        orientation: "vertical"
+        BoxLayout:
+            orientation: "horizontal"
+            size_hint: 1, 0.6
+            BoxLayout:
+                orientation: "vertical"
+                size_hint: 0.5, 1
+                Label:
+                    text_size: self.size
+                    text: "  FULL NAME"
+                    halign: 'left'
+                Label:
+                    text_size: self.size
+                    text: "  WEIGHT/lbs"
+                    halign: 'left'
+                Label:
+                    text: ""
+                    halign: 'left'
+                Label:
+                    text: ""
+                    halign: 'left'
+                Label:
+                    text: ""
+                    halign: 'left'
+                Label:
+                    text: ""
+                    halign: 'left'
+                Label:
+                    text: ""
+                    halign: 'left'
+                Label:
+                    text: ""
+                    halign: 'left'
+                Label:
+                    text: ""
+                    halign: 'left'
+                Label:
+                    text: ""
+                    halign: 'left'
+
+            BoxLayout:
+                orientation: "vertical"
+                size_hint: 0.5, 1
+                TextInput:
+                    id: fullname_input_ekle
+                    multiline: False
+                TextInput:
+                    id: fiweight_input_ekle
+                    multiline: False
+                    input_filter: "float"
+                Label:
+                    text: ""
+                    halign: 'left'
+                Label:
+                    text: ""
+                    halign: 'left'
+                Label:
+                    text: ""
+                    halign: 'left'
+                Label:
+                    text: ""
+                    halign: 'left'
+                Label:
+                    text: ""
+                    halign: 'left'
+                Label:
+                    text: ""
+                    halign: 'left'
+                Label:
+                    text: ""
+                    halign: 'left'
+                Label:
+                    text: ""
+                    halign: 'left'
+        Button:
+            height: '48dp'
+            text: 'Add'
+            text_size: self.size
+            halign: 'center'
+            size_hint: 1, 0.2
+            on_release:
+                root.manager.transition.direction = "right"
+                root.fiekletodb()
+
+        Button:
+            height: '48dp'
+            text: 'Back'
+            text_size: self.size
+            halign: 'center'
+            size_hint: 1, 0.2
+            on_release:
+                root.manager.transition.direction = "right"
+                root.tofiayarlar()
+<FiUpdate>:
+    canvas.before:
+        Color:
+            rgb: .6, .6, .6
+        Rectangle:
+            size: self.size
+            source: 'data/background.png'
+
+    BoxLayout:
+        orientation: "vertical"
+        BoxLayout:
+            orientation: "horizontal"
+            size_hint: 1, 0.6
+            BoxLayout:
+                orientation: "vertical"
+                size_hint: 0.5, 1
+                Label:
+                    text: "Flight Instructors"
+                Label:
+                    text_size: self.size
+                    text: "  Full Name: "
+                    halign: 'left'
+                Label:
+                    text_size: self.size
+                    text: "  Weight: "
+                    halign: 'left'
+                Label:
+                    text: ""
+                    halign: 'left'
+                Label:
+                    text: ""
+                    halign: 'left'
+                Label:
+                    text: ""
+                    halign: 'left'
+                Label:
+                    text: ""
+                    halign: 'left'
+                Label:
+                    text: ""
+                    halign: 'left'
+                Label:
+                    text: ""
+                    halign: 'left'
+                Label:
+                    text: ""
+                    halign: 'left'
+                Label:
+                    text: ""
+                    halign: 'left'
+
+            BoxLayout:
+                orientation: "vertical"
+                size_hint: 0.5, 1
+                Spinner:
+                    id: spinnerupdatefi
+                    values: app.valuesfi
+                    text: '  Choose'
+                    height: '48dp'
+                    on_text:
+                        root.manager.transition.direction = "left"
+                        root.filltextinputsfiupdate()
+
+
+                TextInput:
+                    id: fullname_input_update
+                    multiline: False
+                TextInput:
+                    id: weight_input_update
+                    multiline: False
+                    input_filter: "float"
+                Label:
+                    text: ""
+                    halign: 'left'
+                Label:
+                    text: ""
+                    halign: 'left'
+                Label:
+                    text: ""
+                    halign: 'left'
+                Label:
+                    text: ""
+                    halign: 'left'
+                Label:
+                    text: ""
+                    halign: 'left'
+                Label:
+                    text: ""
+                    halign: 'left'
+                Label:
+                    text: ""
+                    halign: 'left'
+                Label:
+                    text: ""
+                    halign: 'left'
+
+        Button:
+            height: '48dp'
+            text: 'Update'
+            text_size: self.size
+            halign: 'center'
+            size_hint: 1, 0.2
+            on_release:
+                root.manager.transition.direction = "right"
+                root.updatetodbfi()
+
+
+        Button:
+            height: '48dp'
+            text: 'Back'
+            text_size: self.size
+            halign: 'center'
+            size_hint: 1, 0.2
+            on_release:
+                root.manager.transition.direction = "right"
+                root.tofiayarlar()
+
+
+<FiSil>:
+    canvas.before:
+        Color:
+            rgb: .6, .6, .6
+        Rectangle:
+            size: self.size
+            source: 'data/background.png'
+
+    BoxLayout:
+        orientation: "vertical"
+        BoxLayout:
+            orientation: "horizontal"
+            size_hint: 1, 0.6
+            BoxLayout:
+                orientation: "vertical"
+                size_hint: 0.5, 1
+                Label:
+                    text: "FI/Co-Pilot"
+                Label:
+                    text_size: self.size
+                    id: deletefi_label
+                    text: ""
+                    halign: 'right'
+                Label:
+                    text: ""
+                    halign: 'left'
+                Label:
+                    text: ""
+                    halign: 'left'
+                Label:
+                    text: ""
+                    halign: 'left'
+                Label:
+                    text: ""
+                    halign: 'left'
+                Label:
+                    text: ""
+                    halign: 'left'
+                Label:
+                    text: ""
+                    halign: 'left'
+                Label:
+                    text: ""
+                    halign: 'left'
+                Label:
+                    text: ""
+                    halign: 'left'
+                Label:
+                    text: ""
+                    halign: 'left'
+
+            BoxLayout:
+                orientation: "vertical"
+                size_hint: 0.5, 1
+                Spinner:
+                    id: spinnerdeletefi
+                    values: app.valuesfi
+                    text: '  Choose'
+                    height: '48dp'
+                    on_text:
+                        root.manager.transition.direction = "left"
+                        root.filltextinputsfi()
+
+
+                Label:
+                    text_size: self.size
+                    id: delete_fi_label
+                    text: ""
+                    halign: 'left'
+                Label:
+                    text: ""
+                    halign: 'left'
+                Label:
+                    text: ""
+                    halign: 'left'
+                Label:
+                    text: ""
+                    halign: 'left'
+                Label:
+                    text: ""
+                    halign: 'left'
+                Label:
+                    text: ""
+                    halign: 'left'
+                Label:
+                    text: ""
+                    halign: 'left'
+                Label:
+                    text: ""
+                    halign: 'left'
+                Label:
+                    text: ""
+                    halign: 'left'
+                Label:
+                    text: ""
+                    halign: 'left'
+
+        Button:
+            height: '48dp'
+            text: 'Delete'
+            text_size: self.size
+            halign: 'center'
+            size_hint: 1, 0.2
+            on_release:
+                root.manager.transition.direction = "right"
+                root.deletefromdbfi()
+
+
+        Button:
+            height: '48dp'
+            text: 'Back'
+            text_size: self.size
+            halign: 'center'
+            size_hint: 1, 0.2
+            on_release:
+                root.manager.transition.direction = "right"
+                root.tofiayarlar()
+
